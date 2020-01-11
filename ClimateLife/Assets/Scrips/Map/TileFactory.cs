@@ -5,11 +5,13 @@ using UnityEditor;
 
 public enum ClimateStation { SPRING, SUMMER, AUTUM, WINTER }
 
-public struct TileMapX3
+public class TileMapX3
 {
     public TileSetupObject top, mid, bot;
     public GameObject TileMapX3Parent;
     public int level;
+
+    public TileMapX3() { Debug.LogError("Undefined Tile"); }
 
     public TileMapX3(GameObject parent, TileSetupObject _top, TileSetupObject _mid, TileSetupObject _bot, int _level)
     {
@@ -18,6 +20,15 @@ public struct TileMapX3
         bot = _bot;
         TileMapX3Parent = parent;
         level = _level;
+
+        RelocateTiles();
+    }
+
+    public void RelocateTiles()
+    {
+        top.Tile.transform.localPosition = new Vector3(1, 0, 0);
+        mid.Tile.transform.localPosition = new Vector3(0, 0, 0);
+        top.Tile.transform.localPosition = new Vector3(-1, 0, 0);
     }
 }
 
