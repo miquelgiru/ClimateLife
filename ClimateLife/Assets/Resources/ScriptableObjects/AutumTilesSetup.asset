@@ -12,4 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151d38b78b86fd34eb1fc90dd68cf68a, type: 3}
   m_Name: AutumTilesSetup
   m_EditorClassIdentifier: 
-  Tiles: []
+  TopTiles:
+  - Name: 
+    Tile: {fileID: 7326427934042772307, guid: 4c74a5f32447bda4ab40a12e7d2d9078, type: 3}
+    Level: 1
+    ObstacleType: 0
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 8612997007155539571, guid: 0408e92dc90dc694c95a83f35ffcfed1, type: 3}
+    Level: 1
+    ObstacleType: 1
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 5583382209185195377, guid: 833aa5f082ec63546aefc6dc0949e573, type: 3}
+    Level: 1
+    ObstacleType: 2
+    position: {x: 0, y: 0, z: 0}
+  MidTiles:
+  - Name: 
+    Tile: {fileID: 7326427934042772307, guid: 4c74a5f32447bda4ab40a12e7d2d9078, type: 3}
+    Level: 1
+    ObstacleType: 0
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 8612997007155539571, guid: 0408e92dc90dc694c95a83f35ffcfed1, type: 3}
+    Level: 1
+    ObstacleType: 1
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 5583382209185195377, guid: 833aa5f082ec63546aefc6dc0949e573, type: 3}
+    Level: 1
+    ObstacleType: 2
+    position: {x: 0, y: 0, z: 0}
+  BotTiles:
+  - Name: 
+    Tile: {fileID: 7326427934042772307, guid: 4c74a5f32447bda4ab40a12e7d2d9078, type: 3}
+    Level: 1
+    ObstacleType: 0
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 5583382209185195377, guid: 833aa5f082ec63546aefc6dc0949e573, type: 3}
+    Level: 1
+    ObstacleType: 2
+    position: {x: 0, y: 0, z: 0}
+  - Name: 
+    Tile: {fileID: 8612997007155539571, guid: 0408e92dc90dc694c95a83f35ffcfed1, type: 3}
+    Level: 1
+    ObstacleType: 1
+    position: {x: 0, y: 0, z: 0}

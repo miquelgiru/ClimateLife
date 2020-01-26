@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 public enum ObstacleSize { SMALL, MEDIUM, LARGE}
-public enum ObstacleType { WALL, STUN, BRIDGE}
+public enum ObstacleType { WALL, STUN, BRIDGE, NONE}
 
 public class Obstacle : MonoBehaviour
 {

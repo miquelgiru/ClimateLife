@@ -5,39 +5,6 @@ using UnityEditor;
 
 public enum ClimateStation { SPRING, SUMMER, AUTUM, WINTER }
 
-public class TileMapX3
-{
-    public TileSetupObject top, mid, bot;
-    public GameObject TileMapX3Parent;
-    public int level;
-
-    public TileMapX3() { Debug.LogError("Undefined Tile"); }
-
-    public TileMapX3(GameObject parent, TileSetupObject _top, TileSetupObject _mid, TileSetupObject _bot, int _level)
-    {
-        top = _top;
-        mid = _mid;
-        bot = _bot;
-        TileMapX3Parent = parent;
-        level = _level;
-
-        RelocateTiles();
-    }
-
-    public void RelocateTiles()
-    {
-        top.Tile.transform.localPosition = new Vector3(1, 0, 0);
-        mid.Tile.transform.localPosition = new Vector3(0, 0, 0);
-        top.Tile.transform.localPosition = new Vector3(-1, 0, 0);
-    }
-}
-
-public struct TileMapX9
-{
-    TileMapX3 left, mid, right;
-    Vector3 topPos, midPos, botPos;
-    GameObject TileMapX9Parent;
-}
 
 public class TileFactory : MonoBehaviour
 {
@@ -47,35 +14,45 @@ public class TileFactory : MonoBehaviour
     public TileSetup AutumSetup;
     public TileSetup WinterSetup;
 
-    [Header("Tile Creation")]
     public ClimateStation DesiredStation;
+    public int Level;
+
+
+    [Header("Tile Creation X3")]
     public ObstacleType Top;
     public ObstacleType Mid;
     public ObstacleType Bot;
-    public int Level;
 
-    private TileMapX3 tileToCreate;
+    [Header("Tile Creation X12")]
+    public int TileCreationaAmount;
 
 
-    public TileMapX3 CreateTile3x3()
+
+    #region TILEX3
+    public GameObject CreateTileX3(out string stationFolder)
     {
         switch (DesiredStation)
         {
             case ClimateStation.SPRING:
-                return GetTiles(SpringSetup);
+                stationFolder = "Spring/";
+                return GetSingleTiles(SpringSetup);
             case ClimateStation.SUMMER:
-                return GetTiles(SummerSetup);
+                stationFolder = "Summer/";
+                return GetSingleTiles(SummerSetup);
             case ClimateStation.AUTUM:
-                return GetTiles(AutumSetup);
+                stationFolder = "Autum/";
+                return GetSingleTiles(AutumSetup);
             case ClimateStation.WINTER:
-                return GetTiles(WinterSetup);
+                stationFolder = "Winter/";
+                return GetSingleTiles(WinterSetup);
         }
 
         Debug.LogError("Could not Create a Tile 3x3");
-        return new TileMapX3();
+        stationFolder = "";
+        return null;
     }
 
-    private TileMapX3 GetTiles(TileSetup station)
+    private GameObject GetSingleTiles(TileSetup station)
     {
         TileMapX3 Tile;
 
@@ -117,12 +94,98 @@ public class TileFactory : MonoBehaviour
         if (mid.Tile == null) { Debug.LogError("Could not find a bot Tile with the ObstacleType: " + Bot.ToString()); }
 
 
-        GameObject parent = new GameObject(DesiredStation.ToString() + "_Level" + Level);
+        GameObject parent = new GameObject(DesiredStation.ToString() + "_Level_" + Level);
 
         Tile = new TileMapX3(parent, top, mid, bot, Level);
 
-        return Tile;
+        TileX3 tilex3 = parent.AddComponent<TileX3>();
+        tilex3.DificultyLevel = Level;
+        tilex3.station = DesiredStation;
+        tilex3.TileMap = Tile;
+
+        return parent;
     }
+
+    #endregion
+
+    #region TILEX12
+    public GameObject[] CreateTileX12Group(out string stationFolder)
+    {
+        GameObject[] tiles = new GameObject[TileCreationaAmount];
+        stationFolder = "";
+
+        for ( int i = 0; i < TileCreationaAmount; i++)
+        {
+            tiles[i] = CreateTileX12(out stationFolder);
+            tiles[i].GetComponent<TileX12>().RellocateTiles();
+        }
+
+        return tiles;
+    }
+
+    public GameObject CreateTileX12(out string stationFolder)
+    {
+        switch (DesiredStation)
+        {
+            case ClimateStation.SPRING:
+                stationFolder = "Spring/";
+                return GetTilesX12("Prefabs/Map/Spring/TilesX3");
+            case ClimateStation.SUMMER:
+                stationFolder = "Summer/";
+                return GetTilesX12("Prefabs/Map/Summer/TilesX3");
+            case ClimateStation.AUTUM:
+                stationFolder = "Autum/";
+                return GetTilesX12("Prefabs/Map/Autum/TilesX3");
+            case ClimateStation.WINTER:
+                stationFolder = "Winter/";
+                return GetTilesX12("Prefabs/Map/Winter/TilesX3");
+        }
+
+        Debug.LogError("Could not Create a Tile x12");
+        stationFolder = "";
+        return null;
+    }
+
+    private GameObject GetTilesX12(string path)
+    {
+        GameObject parent = new GameObject(DesiredStation.ToString() + "_Level_" + Level);
+
+        TileX3[] tiles = GetTilesOfLevel(Resources.LoadAll<TileX3>(path), Level);
+        
+
+        TileX3[] randomTiles = new TileX3[4];
+
+        for(int i = 0; i < 4; ++i)
+        {
+            int rand = Random.Range(0, tiles.Length - 1);
+            randomTiles[i] = tiles[rand];
+            Instantiate(randomTiles[i], parent.transform);
+        }
+
+
+        TileMapX12 tilex12 = new TileMapX12(randomTiles[0], randomTiles[1], randomTiles[2], randomTiles[3], parent);
+
+        TileX12 tile = parent.AddComponent<TileX12>();
+        tile.DificultyLevel = Level;
+        tile.TileMap = tilex12;
+        tile.station = DesiredStation;
+
+        return parent;
+    }
+
+    private TileX3[] GetTilesOfLevel(TileX3[] tiles, int level)
+    {
+        List<TileX3> tmp = new List<TileX3>();
+        foreach(TileX3 t in tiles)
+        {
+            if (t.DificultyLevel == level)
+                tmp.Add(t);
+        }
+
+        return tmp.ToArray();
+    }
+    #endregion
+
 }
 
 

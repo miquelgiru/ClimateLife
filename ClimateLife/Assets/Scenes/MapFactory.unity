@@ -323,15 +323,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838d71717e20ace459baf8ebd148d646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpringSetup: {fileID: 0}
-  SummerSetup: {fileID: 0}
-  AutumSetup: {fileID: 0}
-  WinterSetup: {fileID: 0}
-  DesiredStation: 0
-  Top: 0
-  Mid: 0
-  Bot: 0
-  Level: 0
+  SpringSetup: {fileID: 11400000, guid: a7774f4596718bb4dbb4d54b7dfa27a3, type: 2}
+  SummerSetup: {fileID: 11400000, guid: 5cff2987349780848bb0c74eba545a97, type: 2}
+  AutumSetup: {fileID: 11400000, guid: 9d23b699b1ecba84e925b746225fa2f0, type: 2}
+  WinterSetup: {fileID: 11400000, guid: a5c2b709be9ccbb43baf01a32838c2ab, type: 2}
+  DesiredStation: 2
+  Level: 1
+  Top: 1
+  Mid: 2
+  Bot: 1
+  TileCreationaAmount: 10
 --- !u!4 &2012854382
 Transform:
   m_ObjectHideFlags: 0
