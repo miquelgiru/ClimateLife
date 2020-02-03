@@ -328,11 +328,11 @@ MonoBehaviour:
   AutumSetup: {fileID: 11400000, guid: 9d23b699b1ecba84e925b746225fa2f0, type: 2}
   WinterSetup: {fileID: 11400000, guid: a5c2b709be9ccbb43baf01a32838c2ab, type: 2}
   DesiredStation: 2
-  Level: 1
-  Top: 1
-  Mid: 2
-  Bot: 1
-  TileCreationaAmount: 10
+  Level: 0
+  Top: 3
+  Mid: 3
+  Bot: 3
+  TileCreationaAmount: 1
 --- !u!4 &2012854382
 Transform:
   m_ObjectHideFlags: 0
